@@ -1,4 +1,0 @@
-case_id,search_type,query,expected_official_match,expected_behavior,source_url,notes
-001,ingredient,,,,,
-002,ingredient,,,,,
-003,product,,,,,

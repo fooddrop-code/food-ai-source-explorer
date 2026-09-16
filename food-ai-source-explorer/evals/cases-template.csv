@@ -1,0 +1,11 @@
+case_id,search_type,query,expected_official_match,expected_behavior,source_url,notes
+001,ingredient,Abiu,Abiu,대표 원재료명 검색 결과를 1건 이상 표시,https://www.data.go.kr/data/15058665/openapi.do,공식 API 안내의 예시 원재료
+002,ingredient,루쿠마,Abiu,이명 검색으로 Abiu를 후보에 표시,https://www.data.go.kr/data/15058665/openapi.do,공식 API 안내에서 Abiu의 이명으로 제시
+003,ingredient,Yellow star apple,Abiu,영문명 검색으로 Abiu를 후보에 표시,https://www.data.go.kr/data/15058665/openapi.do,공식 API 안내의 Abiu 영문명 예시
+004,ingredient,Pouteria caimito,Abiu,학명 검색으로 Abiu를 후보에 표시,https://www.data.go.kr/data/15058665/openapi.do,공식 API 안내의 Abiu 학명 예시
+005,ingredient,abiu,Abiu,대소문자 차이에도 대표 원재료를 후보에 표시,https://www.data.go.kr/data/15058665/openapi.do,검색 정규화 요구사항
+006,ingredient,Abiu ,Abiu,앞뒤 공백을 제거한 뒤 대표 원재료를 후보에 표시,https://www.data.go.kr/data/15058665/openapi.do,검색 정규화 요구사항
+007,ingredient,루쿠마 ,Abiu,앞뒤 공백을 제거한 뒤 이명 검색을 수행,https://www.data.go.kr/data/15058665/openapi.do,검색 정규화 요구사항
+008,ingredient,없는원재료검증용,없음,일치 항목이 없음을 표시하고 사실을 생성하지 않음,https://www.data.go.kr/data/15058665/openapi.do,향후 실제 API 응답으로 무결과 여부 재확인
+009,ingredient,,없음,빈 검색어를 전송하지 않고 입력 안내를 표시,https://www.data.go.kr/data/15058665/openapi.do,입력 검증 요구사항
+010,ingredient,아비우,검증 필요,한글 표기 검색 결과를 원문 필드와 함께 표시하거나 무결과를 명시,https://www.data.go.kr/data/15058665/openapi.do,실제 API 연결 후 대표명·이명 검색 가능 여부 확인
