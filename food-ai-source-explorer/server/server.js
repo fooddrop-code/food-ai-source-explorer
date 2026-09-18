@@ -15,6 +15,7 @@ app.get("/api/health", function (request, response) {
 
 app.get("/api/ingredients", async function (request, response) {
   const query = request.query.q?.trim();
+  const page = Number(request.query.page) || 1;
 
   if (!query) {
     return response.status(400).json({
@@ -25,7 +26,7 @@ app.get("/api/ingredients", async function (request, response) {
   const parameters = new URLSearchParams({
     serviceKey: process.env.FOOD_API_KEY,
     type: "json",
-    pageNo: "1",
+    pageNo: String(page),
     numOfRows: "10",
     rprsnt_rawmtrl_nm: query
   });

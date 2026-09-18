@@ -1,22 +1,22 @@
 const searchButton = document.querySelector("#search-button");
 const ingredientInput = document.querySelector("#ingredient-input");
 const resultMessage = document.querySelector("#result-message");
+const previousPageButton = document.querySelector("#previous-page-button");
+const nextPageButton = document.querySelector("#next-page-button");
 
-searchButton.addEventListener("click", async function () {
-  const query = ingredientInput.value.trim();
+let currentPage = 1;
+let currentQuery = "";
+const pageSize = 10;
 
-  if (query === "") {
-    resultMessage.textContent = "원재료명을 입력해 주세요.";
-    return;
-  }
-
+async function searchIngredients() {
   resultMessage.textContent = "공식 데이터를 검색 중입니다.";
+  previousPageButton.hidden = true;
+  nextPageButton.hidden = true;
 
   try {
     const serverResponse = await fetch(
-      `http://localhost:3000/api/ingredients?q=${encodeURIComponent(query)}`
+      `http://localhost:3000/api/ingredients?q=${encodeURIComponent(currentQuery)}&page=${currentPage}`
     );
-
     const data = await serverResponse.json();
 
     if (!serverResponse.ok) {
@@ -25,14 +25,14 @@ searchButton.addEventListener("click", async function () {
 
     const ingredients = data.body?.items ?? [];
     const totalCount = data.body?.totalCount ?? ingredients.length;
-    const searchedAt = new Date().toLocaleString("ko-KR");
-    const sourceUrl = "https://www.data.go.kr/data/15058665/openapi.do";
 
     if (ingredients.length === 0) {
-      resultMessage.textContent = `"${query}"에 대한 공식 데이터를 찾지 못했습니다.`;
+      resultMessage.textContent = `"${currentQuery}"에 대한 공식 데이터를 찾지 못했습니다.`;
       return;
     }
 
+    const searchedAt = new Date().toLocaleString("ko-KR");
+    const sourceUrl = "https://www.data.go.kr/data/15058665/openapi.do";
     const cards = ingredients
       .map(function (ingredient) {
         const nickname = ingredient.RAWMTRL_NCKNM ?? "제공되지 않음";
@@ -52,20 +52,72 @@ searchButton.addEventListener("click", async function () {
       .join("");
 
     resultMessage.innerHTML = `
-  <p class="result-summary">"${query}" 검색 결과 총 ${totalCount}건 중 ${ingredients.length}건 표시</p>
-  ${cards}
-  <p class="source">
-    데이터 출처:
-    <a href="${sourceUrl}" target="_blank" rel="noreferrer">
-      식품의약품안전처 식품 원재료 정보 API
-    </a><br>
-    조회 시각: ${searchedAt}
-  </p>
-`;
+      <p class="result-summary">
+        "${currentQuery}" 검색 결과 총 ${totalCount}건 중
+        ${currentPage}페이지 ${ingredients.length}건 표시
+      </p>
+      ${cards}
+      <p class="source">
+        데이터 출처:
+        <a href="${sourceUrl}" target="_blank" rel="noreferrer">
+          식품의약품안전처 식품 원재료 정보 API
+        </a><br>
+        조회 시각: ${searchedAt}
+      </p>
+    `;
+
+    const lastPage = Math.ceil(totalCount / pageSize);
+    previousPageButton.hidden = currentPage === 1;
+    nextPageButton.hidden = currentPage >= lastPage;
+
+    if (!nextPageButton.hidden) {
+      nextPageButton.textContent = `다음 10건 보기 (${currentPage + 1}페이지)`;
+    }
   } catch (error) {
-    resultMessage.textContent =
-      "공식 데이터를 불러오지 못했습니다. 서버 실행 상태를 확인해 주세요.";
+    console.error(error);
+    resultMessage.textContent = `오류: ${error.message}`;
   }
+}
+
+searchButton.addEventListener("click", function () {
+  currentQuery = ingredientInput.value.trim();
+
+  if (currentQuery === "") {
+    resultMessage.textContent = "원재료명을 입력해 주세요.";
+    return;
+  }
+
+  currentPage = 1;
+  searchIngredients();
+  const items = data.body?.items ?? [];
+  const totalCount = data.body?.totalCount ?? 0;
+  if (items.length === 0) {
+  resultMessage.textContent =
+    `"${currentQuery}"에 대한 공식 원재료 정보를 찾지 못했습니다. 검색어를 바꿔 보세요.`;
+
+  resultContainer.innerHTML = `
+    <div class="empty-result">
+      <strong>검색 결과 없음</strong>
+      <p>현재 연결된 식품의약품안전처 식품 원재료 정보 API에서 일치하는 결과를 받지 못했습니다.</p>
+    </div>
+  `;
+
+  previousPageButton.hidden = true;
+  nextPageButton.hidden = true;
+  return;
+}
+});
+
+previousPageButton.addEventListener("click", function () {
+  if (currentPage > 1) {
+    currentPage -= 1;
+    searchIngredients();
+  }
+});
+
+nextPageButton.addEventListener("click", function () {
+  currentPage += 1;
+  searchIngredients();
 });
 
 ingredientInput.addEventListener("keydown", function (event) {
