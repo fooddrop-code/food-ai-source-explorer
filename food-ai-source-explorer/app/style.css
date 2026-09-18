@@ -1,33 +1,72 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   font-family: Arial, sans-serif;
-  max-width: 700px;
+  max-width: 760px;
   margin: 60px auto;
   padding: 0 20px;
   color: #1f2937;
 }
 
 h1 {
+  margin-bottom: 12px;
   color: #166534;
 }
 
 input {
-  width: 250px;
+  width: 280px;
   padding: 10px;
   margin: 8px 0;
+  border: 1px solid #9ca3af;
+  border-radius: 6px;
 }
 
 button {
   padding: 10px 16px;
   border: none;
+  border-radius: 6px;
   background-color: #166534;
   color: white;
   cursor: pointer;
 }
+
+button:hover {
+  background-color: #14532d;
+}
+
 #result-message {
   margin-top: 24px;
-  padding: 16px;
+}
+
+.result-summary {
+  margin: 0 0 12px;
+  font-weight: bold;
+  color: #166534;
+}
+
+.ingredient-card {
+  margin-bottom: 12px;
+  padding: 18px;
   background-color: #f0fdf4;
   border: 1px solid #bbf7d0;
   border-radius: 8px;
   line-height: 1.7;
+}
+
+.ingredient-card h2 {
+  margin: 0 0 10px;
+  color: #166534;
+  font-size: 20px;
+}
+
+.ingredient-card p {
+  margin: 5px 0;
+}
+
+.source {
+  margin-top: 12px !important;
+  font-size: 13px;
+  color: #4b5563;
 }
