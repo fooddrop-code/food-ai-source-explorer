@@ -1,15 +1,18 @@
-const searchButton = document.querySelector("#search-button");
-const ingredientInput = document.querySelector("#ingredient-input");
-const resultMessage = document.querySelector("#result-message");
-const previousPageButton = document.querySelector("#previous-page-button");
-const nextPageButton = document.querySelector("#next-page-button");
+const ingredientInput = document.getElementById("ingredient-input");
+const searchButton = document.getElementById("search-button");
+const resultMessage = document.getElementById("result-message");
+const previousPageButton = document.getElementById("previous-page-button");
+const nextPageButton = document.getElementById("next-page-button");
 
-let currentPage = 1;
 let currentQuery = "";
+let currentPage = 1;
 const pageSize = 10;
 
 async function searchIngredients() {
-  resultMessage.textContent = "공식 데이터를 검색 중입니다.";
+  searchButton.disabled = true;
+  searchButton.textContent = "검색 중...";
+  resultMessage.textContent = "공식 데이터를 불러오는 중입니다...";
+
   previousPageButton.hidden = true;
   nextPageButton.hidden = true;
 
@@ -17,22 +20,28 @@ async function searchIngredients() {
     const serverResponse = await fetch(
       `http://localhost:3000/api/ingredients?q=${encodeURIComponent(currentQuery)}&page=${currentPage}`
     );
-    const data = await serverResponse.json();
 
     if (!serverResponse.ok) {
       throw new Error("서버 요청에 실패했습니다.");
     }
 
+    const data = await serverResponse.json();
     const ingredients = data.body?.items ?? [];
-    const totalCount = data.body?.totalCount ?? ingredients.length;
+    const totalCount = data.body?.totalCount ?? 0;
 
     if (ingredients.length === 0) {
-      resultMessage.textContent = `"${currentQuery}"에 대한 공식 데이터를 찾지 못했습니다.`;
+      resultMessage.innerHTML = `
+        <div class="empty-result">
+          <strong>검색 결과 없음</strong>
+          <p>"${currentQuery}"에 대한 공식 원재료 정보를 찾지 못했습니다. 검색어를 바꿔 보세요.</p>
+        </div>
+      `;
       return;
     }
 
     const searchedAt = new Date().toLocaleString("ko-KR");
     const sourceUrl = "https://www.data.go.kr/data/15058665/openapi.do";
+
     const cards = ingredients
       .map(function (ingredient) {
         const nickname = ingredient.RAWMTRL_NCKNM ?? "제공되지 않음";
@@ -67,6 +76,7 @@ async function searchIngredients() {
     `;
 
     const lastPage = Math.ceil(totalCount / pageSize);
+
     previousPageButton.hidden = currentPage === 1;
     nextPageButton.hidden = currentPage >= lastPage;
 
@@ -76,6 +86,9 @@ async function searchIngredients() {
   } catch (error) {
     console.error(error);
     resultMessage.textContent = `오류: ${error.message}`;
+  } finally {
+    searchButton.disabled = false;
+    searchButton.textContent = "검색";
   }
 }
 
@@ -89,23 +102,6 @@ searchButton.addEventListener("click", function () {
 
   currentPage = 1;
   searchIngredients();
-  const items = data.body?.items ?? [];
-  const totalCount = data.body?.totalCount ?? 0;
-  if (items.length === 0) {
-  resultMessage.textContent =
-    `"${currentQuery}"에 대한 공식 원재료 정보를 찾지 못했습니다. 검색어를 바꿔 보세요.`;
-
-  resultContainer.innerHTML = `
-    <div class="empty-result">
-      <strong>검색 결과 없음</strong>
-      <p>현재 연결된 식품의약품안전처 식품 원재료 정보 API에서 일치하는 결과를 받지 못했습니다.</p>
-    </div>
-  `;
-
-  previousPageButton.hidden = true;
-  nextPageButton.hidden = true;
-  return;
-}
 });
 
 previousPageButton.addEventListener("click", function () {
