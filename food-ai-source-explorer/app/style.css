@@ -108,3 +108,50 @@ button:disabled {
 .copy-name-button:hover {
   background-color: #dcfce7;
 }
+.data-notice {
+  margin: 12px 0 24px;
+  padding: 12px 14px;
+  border-left: 4px solid #f59e0b;
+  background-color: #fffbeb;
+  color: #78350f;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+@media (max-width: 600px) {
+  body {
+    margin: 32px auto;
+    padding: 0 16px;
+  }
+
+  input {
+    width: 100%;
+  }
+
+  button {
+    margin-top: 8px;
+  }
+
+  .next-page-area {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+  }
+}
+.example-searches {
+  margin: 10px 0 20px;
+}
+
+.example-button {
+  margin: 0 4px;
+  padding: 6px 10px;
+  border: 1px solid #86efac;
+  border-radius: 999px;
+  background-color: #f0fdf4;
+  color: #166534;
+  font-size: 14px;
+}
+
+.example-button:hover {
+  background-color: #dcfce7;
+}

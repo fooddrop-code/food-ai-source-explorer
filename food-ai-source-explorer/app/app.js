@@ -1,5 +1,6 @@
 const ingredientInput = document.getElementById("ingredient-input");
 const searchButton = document.getElementById("search-button");
+const resetButton = document.getElementById("reset-button");
 const resultMessage = document.getElementById("result-message");
 const previousPageButton = document.getElementById("previous-page-button");
 const nextPageButton = document.getElementById("next-page-button");
@@ -105,6 +106,29 @@ searchButton.addEventListener("click", function () {
   searchIngredients();
 });
 
+resetButton.addEventListener("click", function () {
+  ingredientInput.value = "";
+  currentQuery = "";
+  currentPage = 1;
+
+  resultMessage.textContent = "원재료명을 입력해 검색해 보세요.";
+
+  previousPageButton.hidden = true;
+  nextPageButton.hidden = true;
+
+  ingredientInput.focus();
+});
+const exampleButtons = document.querySelectorAll(".example-button");
+
+exampleButtons.forEach(function (button) {
+  button.addEventListener("click", function () {
+    currentQuery = button.dataset.query;
+    ingredientInput.value = currentQuery;
+    currentPage = 1;
+
+    searchIngredients();
+  });
+});
 previousPageButton.addEventListener("click", function () {
   if (currentPage > 1) {
     currentPage -= 1;
@@ -133,5 +157,9 @@ resultMessage.addEventListener("click", async function (event) {
   await navigator.clipboard.writeText(ingredientName);
 
   event.target.textContent = "복사 완료";
+
+  setTimeout(function () {
+  event.target.textContent = "원료명 복사";
+}, 1500);
 });
 
