@@ -50,6 +50,7 @@ async function searchIngredients() {
         return `
           <article class="ingredient-card">
             <h2>${ingredient.RPRSNT_RAWMTRL_NM ?? "정보 없음"}</h2>
+            <button class="copy-name-button" data-name="${ingredient.RPRSNT_RAWMTRL_NM ?? "정보 없음"}">원료명 복사</button>
             <p><strong>이명:</strong> ${nickname}</p>
             <p><strong>분류:</strong> ${ingredient.LCLAS_NM ?? "정보 없음"} / ${ingredient.MLSFC_NM ?? "정보 없음"}</p>
             <p><strong>영문명:</strong> ${ingredient.ENG_NM ?? "정보 없음"}</p>
@@ -121,3 +122,16 @@ ingredientInput.addEventListener("keydown", function (event) {
     searchButton.click();
   }
 });
+
+resultMessage.addEventListener("click", async function (event) {
+  if (!event.target.classList.contains("copy-name-button")) {
+    return;
+  }
+
+  const ingredientName = event.target.dataset.name;
+
+  await navigator.clipboard.writeText(ingredientName);
+
+  event.target.textContent = "복사 완료";
+});
+
