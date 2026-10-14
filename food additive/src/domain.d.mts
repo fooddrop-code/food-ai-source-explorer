@@ -1,0 +1,14 @@
+export type Source = { title: string; url: string };
+export type Additive = { code: string; name: string; role: string; child: string; aliases: string[]; status: 'pending' | 'assessed' | 'condition' | 'attention'; assessment: string; caveat: string; sources: Source[]; reviewedAt: string; match?: string };
+export const ADDITIVES: Additive[];
+export const REVIEWED_AT: string;
+export const SOURCES: Record<'mfds' | 'who' | 'sweeteners' | 'lecithin' | 'titanium', Source>;
+export const STATUS: Record<Additive['status'], { label: string; color: string; background: string }>;
+export function analyzeIngredients(text?: string, tags?: string[]): { entries: Additive[]; unknown: string[]; hasIngredients: boolean; notExhaustive: boolean };
+export function findAdditive(code: string): Additive | undefined;
+export function additiveCode(value: string): string;
+export function safeProductImage(value: string): string | undefined;
+export function offQuery(query: string): string;
+export function offProduct(raw: any): import('./api').Product | null;
+export function mfdsProduct(raw: any, detailed?: boolean): import('./api').Product | null;
+export const SEARCH_ALIASES: Record<string, string>;

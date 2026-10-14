@@ -1,0 +1,25 @@
+{
+  "expo": {
+    "name": "모구 · 성분 탐정",
+    "slug": "mogu",
+    "version": "0.1.0",
+    "orientation": "portrait",
+    "icon": "./assets/mogu-icon.png",
+    "userInterfaceStyle": "light",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.mogu.foodexplorer"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#F9E7E9",
+        "foregroundImage": "./assets/mogu-icon.png"
+      },
+      "predictiveBackGestureEnabled": false,
+      "package": "com.mogu.foodexplorer"
+    },
+    "web": {
+      "favicon": "./assets/mogu-favicon.png"
+    }
+  }
+}

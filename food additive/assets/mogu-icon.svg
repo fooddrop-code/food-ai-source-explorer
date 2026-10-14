@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024"><rect width="1024" height="1024" rx="220" fill="#F9E7E9"/><g transform="translate(52 34) scale(4.6)"><Ellipse cx="102" cy="177" rx="58" ry="9" fill="#DBD3CD" opacity=".38" />
+  <Path d="M62 91 C39 73 39 20 59 18 C77 16 79 57 82 80 M113 79 C111 43 121 13 137 18 C154 23 147 67 137 90" fill="#F7A8B8" stroke="#483E45" stroke-width="3" />
+  <Path d="M58 64 C51 41 54 30 58 30 M128 63 C130 40 133 30 135 31" stroke="#FFE3EA" stroke-width="9" stroke-linecap="round" />
+  <Path d="M60 132 C54 145 53 166 64 172 C78 179 83 164 86 159 L114 159 C119 176 139 180 144 166 C146 152 140 137 133 130" fill="#F7A8B8" stroke="#483E45" stroke-width="3" />
+  <Path d="M52 109 C49 87 65 72 98 72 C130 70 151 84 150 110 C151 140 129 151 100 151 C69 151 52 137 52 109Z" fill="#F7A8B8" stroke="#483E45" stroke-width="3" />
+  <Ellipse cx="70" cy="120" rx="10" ry="6" fill="#EC7F99" /><Ellipse cx="128" cy="120" rx="10" ry="6" fill="#EC7F99" />
+  <Circle cx="82" cy="107" r="3.5" fill="#483E45" /><Circle cx="118" cy="107" r="3.5" fill="#483E45" />
+  <Path d="M95 116 Q100 120 105 116 M100 120 L100 124 Q93 131 88 124 M100 124 Q107 131 112 124" fill="none" stroke="#483E45" stroke-width="2.5" stroke-linecap="round" />
+  <Path d="M72 143 L100 152 L124 143 L124 158 L101 164 L74 157Z" fill="#568A70" /><Circle cx="101" cy="158" r="3" fill="#FFE7A1" />
+  <Path d="M53 136 Q35 134 39 149 Q43 160 61 150" fill="#F7A8B8" stroke="#483E45" stroke-width="3" />
+  <Path d="M143 127 L162 149" stroke="#483E45" stroke-width="7" stroke-linecap="round" /><Circle cx="140" cy="122" r="20" fill="#E5F3E9" fill-opacity=".9" stroke="#483E45" stroke-width="5" />
+  <Path d="M130 115 Q136 108 143 109" stroke="white" stroke-width="4" stroke-linecap="round" />
+  <Path d="M22 81 L24 73 L27 81 L35 84 L27 87 L24 95 L22 87 L14 84Z" fill="#E6AE49" /><Path d="M169 56 L171 49 L174 56 L181 59 L174 62 L171 69 L169 62 L162 59Z" fill="#568A70" />
+ </g></svg>
